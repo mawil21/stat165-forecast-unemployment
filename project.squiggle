@@ -1,0 +1,57 @@
+// Monthly unemployment rates from 2014 to 2024
+data = {
+  "2014": [6.6,6.7,6.7,6.2,6.3,6.1,6.2,6.1,5.9,5.7,5.8,5.6],
+  "2015": [5.7,5.5,5.4,5.4,5.6,5.3,5.2,5.1,5.0,5.0,5.1,5.0],
+  "2016": [4.8,4.9,5.0,5.1,4.8,4.9,4.8,4.9,5.0,4.9,4.7,4.7],
+  "2017": [4.7,4.6,4.4,4.4,4.4,4.3,4.3,4.4,4.3,4.2,4.2,4.1],
+  "2018": [4.0,4.1,4.0,4.0,3.8,4.0,3.8,3.8,3.7,3.8,3.8,3.9],
+  "2019": [4.0,3.8,3.8,3.7,3.6,3.6,3.7,3.6,3.5,3.6,3.6,3.6],
+  "2020": [3.6,3.5,4.4,14.8,13.2,11.0,10.2,8.4,7.8,6.8,6.7,6.7],
+  "2021": [6.4,6.2,6.1,6.1,5.8,5.9,5.4,5.1,4.7,4.5,4.1,3.9],
+  "2022": [4.0,3.8,3.6,3.7,3.6,3.6,3.5,3.6,3.5,3.6,3.6,3.5],
+  "2023": [3.4,3.6,3.5,3.4,3.7,3.6,3.5,3.8,3.8,3.8,3.7,3.7],
+  "2024": [3.7,3.9,3.8,3.9]  // Data for the first four months of 2024
+}
+data22tocurr = [4.0,3.8,3.6,3.7,3.6,3.6,3.5,3.6,3.5,3.6,3.6,3.5,3.4,3.6,3.5,3.4,3.7,3.6,3.5,3.8,3.8,3.8,3.7,3.7,3.7,3.9,3.8,3.9]
+labour_force_participation_rate = [62.2,
+ 62.2,
+ 62.3,
+ 62.2,
+ 62.3,
+ 62.2,
+ 62.1,
+ 62.4,
+ 62.3,
+ 62.3,
+ 62.1,
+ 62.3,
+ 62.4,
+ 62.5,
+ 62.6,
+ 62.6,
+ 62.6,
+ 62.6,
+ 62.6,
+ 62.8,
+ 62.8,
+ 62.7,
+ 62.8,
+ 62.5,
+ 62.5,
+ 62.5,
+ 62.7,
+ 62.7]
+
+mean_laborforce = mean(labour_force_participation_rate)
+sd_laborforce = stdev(labour_force_participation_rate)
+mean22tocurr = mean(data22tocurr)
+sd22tocurr = stdev(data22tocurr)
+pm = pointMass(3.600570071462382)
+us_population = 268066000
+
+
+base_prediction = normal(mean22tocurr,sd22tocurr)
+labour_force_prediction_data = normal(mean_laborforce,sd_laborforce)
+
+final_unemployment_rate = mixture(base_prediction,pm,[7/10,3/10])
+final_answer = final_unemployment_rate/100 * labour_force_prediction_data/100 *us_population
