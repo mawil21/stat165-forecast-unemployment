@@ -19,7 +19,8 @@ mean_laborforce = mean(labour_force_participation_rate)
 sd_laborforce = stdev(labour_force_participation_rate)
 mean22tocurr = mean(data22tocurr)
 sd22tocurr = stdev(data22tocurr)
-pm = pointMass(3.600570071462382)
+regression_model_prediction = 3.625000192535765
+pm = pointMass(regression_model_prediction)
 us_population = 268066000
 
 
@@ -28,3 +29,6 @@ labour_force_prediction_data = normal(mean_laborforce,sd_laborforce)
 
 final_unemployment_rate = mixture(base_prediction,pm,[7/10,3/10])
 final_answer = final_unemployment_rate/100 * labour_force_prediction_data/100 *us_population
+
+lower_bound = Dist.quantile(final_answer,0.1)
+upper_bound = Dist.quantile(final_answer,0.9)
